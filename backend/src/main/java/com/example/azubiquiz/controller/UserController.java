@@ -19,6 +19,11 @@ public class UserController {
         return ResponseEntity.ok(userService.selectAllUser());
     }
 
+    @GetMapping("users/{id}")
+    public ResponseEntity<User> selectUser(@PathVariable Long id) throws Exception {
+        return ResponseEntity.ok(userService.selectUser(id));
+    }
+
     @PutMapping("/users/{id}")
     public ResponseEntity<User> update(@Valid @RequestBody User user, @PathVariable Long id) throws Exception {
         return ResponseEntity.ok(userService.update(user, id));

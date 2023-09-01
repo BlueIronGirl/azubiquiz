@@ -2,7 +2,6 @@ package com.example.azubiquiz.service;
 
 import com.example.azubiquiz.dto.LoginDto;
 import com.example.azubiquiz.dto.RegisterDto;
-import com.example.azubiquiz.entity.Test;
 import com.example.azubiquiz.entity.User;
 import com.example.azubiquiz.exception.EntityAlreadyExistsException;
 import com.example.azubiquiz.repository.UserRepository;
@@ -68,6 +67,10 @@ public class UserService {
 
     public List<User> selectAllUser() {
         return userRepository.findAll();
+    }
+
+    public User selectUser(Long id) throws Exception {
+        return userRepository.findById(id).orElseThrow(() -> new Exception("User nicht gefunden"));
     }
 
     public User update(User userData, Long id) throws Exception {

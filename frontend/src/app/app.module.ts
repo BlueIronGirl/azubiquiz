@@ -26,6 +26,7 @@ import {MessagesModule} from "primeng/messages";
 import {MessageModule} from "primeng/message";
 import {MessageService} from "primeng/api";
 import {TokenInterceptor} from "./interceptor/token-interceptor.service";
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import {TokenInterceptor} from "./interceptor/token-interceptor.service";
         RegisterComponent,
         HomeComponent,
         QuizComponent,
-        QuizzeComponent
+        QuizzeComponent,
+        MenuComponent
     ],
     imports: [
         BrowserModule,

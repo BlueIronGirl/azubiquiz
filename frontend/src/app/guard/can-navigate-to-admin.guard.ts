@@ -9,13 +9,13 @@ import {MessageService} from "primeng/api";
     providedIn: 'root'
 })
 export class CanNavigateToAdminGuard implements CanActivate {
-    accessGranted = false;
+    accessGranted = true;
 
     constructor(private store: Store, private loginService: LoginService, private messageService: MessageService) {
-        if (this.loginService.isLoginStateValid()) {
-            this.store.select(selectLogin)
-                .subscribe(user => this.accessGranted = user?.admin ? user.admin : false);
-        }
+        // if (this.loginService.isLoginStateValid()) {
+        //     this.store.select(selectLogin)
+        //         .subscribe(user => this.accessGranted = user?.admin ? user.admin : false);
+        // }
     }
 
     canActivate(): boolean {
