@@ -5,6 +5,7 @@ import {User} from "../../entity/user";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {UserActions} from "../../admin/store/user/user.actions";
+import {LoginActions} from "../../store/login.actions";
 
 @Component({
   selector: 'pn-login',
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
     const formValue = this.loginForm.getRawValue();
     const user: User = {...formValue};
 
-    this.store.dispatch(UserActions.login({data: user}));
+    this.store.dispatch(LoginActions.login({data: user}));
   }
 
   reset() {

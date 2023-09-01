@@ -9,8 +9,3 @@ export const selectAllUsers = createSelector(
   selectUserState,
   state => state.users
 );
-
-export const selectLogin = createSelector(
-    selectUserState,
-    state => state.loginUser
-)

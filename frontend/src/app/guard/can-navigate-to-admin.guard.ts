@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {CanActivate} from '@angular/router';
 import {Store} from "@ngrx/store";
 import {LoginService} from "../service/login.service";
-import {selectLogin} from "../admin/store/user/user.selectors";
 import {MessageService} from "primeng/api";
 
 @Injectable({

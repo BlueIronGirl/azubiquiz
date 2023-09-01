@@ -6,9 +6,9 @@ import {catchError, map} from "rxjs/operators";
 import {Store} from "@ngrx/store";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
-import {UserActions} from "../admin/store/user/user.actions";
-import {selectLogin} from "../admin/store/user/user.selectors";
 import jwtDecode, {JwtPayload} from "jwt-decode";
+import {LoginActions} from "../store/login.actions";
+import {selectLogin} from "../store/login.selectors";
 
 @Injectable({
     providedIn: 'root'
@@ -56,7 +56,7 @@ export class LoginService {
             const user: User = JSON.parse(userString);
 
             if (user && user.token && this.isTokenNotExpired(this.getExpire(user.token))) {
-                this.store.dispatch(UserActions.loginLocalstorage({data: user}));
+                this.store.dispatch(LoginActions.loginLocalstorage({data: user}));
                 return true;
             }
         }

@@ -1,9 +1,9 @@
 import {createAction, createActionGroup, emptyProps, props} from '@ngrx/store';
-import {User} from "../../../entity/user";
+import {User} from "../entity/user";
 import {HttpErrorResponse} from "@angular/common/http";
 
-export const UserActions = createActionGroup({
-    source: 'Einkaufszettel',
+export const LoginActions = createActionGroup({
+    source: 'Login',
     events: {
         'Register': props<{ data: User }>(),
         'Register Success': props<{ data: User }>(),
@@ -15,11 +15,10 @@ export const UserActions = createActionGroup({
         'Login Failure': props<{ error: HttpErrorResponse }>(),
 
         'Logout': emptyProps(),
-        'Logout Success': emptyProps(),
-
-        'Load Users': emptyProps(),
-        'Load Users Success': props<{ data: User[] }>(),
-        'Load Users Failure': props<{ error: HttpErrorResponse }>(),
-
+        'Logout Success': emptyProps()
     }
 });
+
+
+
+

@@ -27,6 +27,8 @@ import {MessageModule} from "primeng/message";
 import {MessageService} from "primeng/api";
 import {TokenInterceptor} from "./interceptor/token-interceptor.service";
 import { MenuComponent } from './components/menu/menu.component';
+import {loginFeatureKey, loginReducer} from "./store/login.reducer";
+import {LoginEffects} from "./store/login.effects";
 
 @NgModule({
     declarations: [
@@ -46,9 +48,13 @@ import { MenuComponent } from './components/menu/menu.component';
         ReactiveFormsModule,
         HttpClientModule,
         // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService),
+
+        // ngrx
         StoreModule.forRoot({}, {}),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
         EffectsModule.forRoot([]),
+        EffectsModule.forFeature([LoginEffects]),
+        StoreModule.forFeature(loginFeatureKey, loginReducer),
 
         // primeng
         ButtonModule,

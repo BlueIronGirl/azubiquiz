@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {MenuItem, MessageService} from "primeng/api";
-import {select, Store} from "@ngrx/store";
-import {LoginService} from "../../service/login.service";
-import {UserActions} from "../../admin/store/user/user.actions";
-import {selectAllUsers, selectLogin} from "../../admin/store/user/user.selectors";
+import {MenuItem} from "primeng/api";
+import {Store} from "@ngrx/store";
 import {User} from "../../entity/user";
+import {LoginActions} from "../../store/login.actions";
+import {selectLogin} from "../../store/login.selectors";
 
 @Component({
     selector: 'pn-menu',
@@ -12,17 +11,21 @@ import {User} from "../../entity/user";
     styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-    user$ = this.store.pipe(select(selectLogin));
+    items: MenuItem[] = [];
+    menuRendered = false;
 
-    constructor(private store: Store, private loginService: LoginService, private messageService: MessageService) {
+    constructor(private store: Store) {
     }
 
     ngOnInit(): void {
-        this.initMenu();
+        this.store.select(selectLogin).subscribe(user =>
+            user ? this.initMenu(user) : this.menuRendered = false);
     }
 
-    menuItems(user: User): MenuItem[] {
-        let items: MenuItem[] = [
+    private initMenu(user: User) {
+        this.menuRendered = true;
+
+        this.items = [
             {
                 label: 'Home',
                 routerLink: 'home'
@@ -44,21 +47,16 @@ export class MenuComponent implements OnInit {
                     routerLink: 'admin/tests'
                 }]
             };
-            items.push(adminItem);
+            this.items.push(adminItem);
         }
 
-        items.push({label: 'Logout', command: this.logout()});
-
-        return items;
-    }
-
-    private initMenu() {
-
+        this.items.push({label: 'Logout', command: this.logout()});
     }
 
     private logout() {
         return () => {
-            this.store.dispatch(UserActions.logout());
+            this.items = [];
+            this.store.dispatch(LoginActions.logout());
         };
     }
 
