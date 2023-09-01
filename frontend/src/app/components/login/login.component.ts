@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 import {UserActions} from "../../admin/store/user/user.actions";
 
 @Component({
-  selector: 'app-login',
+  selector: 'pn-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
