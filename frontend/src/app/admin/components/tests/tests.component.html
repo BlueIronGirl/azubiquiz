@@ -1,44 +1,38 @@
 <p-card header="Tests">
   <div class="mt-2 w-6 border-1">
-    <p-treeTable *ngIf="testsAsNodes$ | async as tests" [value]="tests" [columns]="cols">
-      <ng-template pTemplate="header" let-columns>
+    <p-table *ngIf="tests$ | async as tests;" [value]="tests">
+      <ng-template pTemplate="header">
         <tr>
-          <th [ngStyle]="{'width': col.width? col.width + 'rem' : null}" *ngFor="let col of columns" class="bg-blue-400">
+          <th *ngFor="let col of cols" class="bg-blue-400">
             {{col.header}}
           </th>
-          <th style="width: 11rem" class="bg-blue-400">
+          <th style="width: 8rem" class="bg-blue-400">
             <p-button icon="pi pi-plus" routerLink="new" [style]="{'margin-right': '.5em'}"></p-button>
             <p-button icon="pi pi-refresh" (onClick)="refresh()"></p-button>
           </th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+
+      <ng-template pTemplate="body" let-test>
         <tr>
-          <td *ngFor="let col of columns; let i = index" ttEditableColumn [ngClass]="{'p-toggler-column': i === 0}">
-            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-
-            <p-treeTableCellEditor *ngIf="!col.readonly; else onlyshow">
-              <ng-template pTemplate="input">
-                <input pInputText type="text" [(ngModel)]="rowData[col.field]">
-              </ng-template>
-              <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
-            </p-treeTableCellEditor>
-
-            <ng-template #onlyshow>
-              {{rowData[col.field]}}
+          <td *ngFor="let col of cols">
+            <div *ngIf="!isBoolean(test[col.field]); else boolean">
+              {{test[col.field]}}
+            </div>
+            <ng-template #boolean>
+              <p-checkbox [(ngModel)]="test[col.field]" [binary]="true"></p-checkbox>
             </ng-template>
+
           </td>
+
           <td>
-            <p-button icon="pi pi-check" styleClass="p-button-success" [style]="{'margin-right': '.5em'}"
-                      (onClick)="updateTest(rowNode)" *ngIf="isColTest(rowData)"></p-button>
             <p-button icon="pi pi-delete-left" styleClass="p-button-success" [style]="{'margin-right': '.5em'}"
-                      (onClick)="deleteTest(rowData)" *ngIf="isColTest(rowData)"></p-button>
-            <p-button icon="pi pi-pencil" styleClass="p-button-warning" routerLink="{{rowData['id']}}"
-                      *ngIf="isColTest(rowData)"></p-button>
+                      (onClick)="deleteTest(test)"></p-button>
+            <p-button icon="pi pi-pencil" styleClass="p-button-warning" routerLink="{{test['id']}}"></p-button>
 
           </td>
         </tr>
       </ng-template>
-    </p-treeTable>
+    </p-table>
   </div>
 </p-card>

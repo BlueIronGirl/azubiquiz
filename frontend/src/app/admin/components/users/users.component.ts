@@ -11,7 +11,6 @@ import {UserActions} from "../../store/user/user.actions";
 export class UsersComponent implements OnInit {
   cols: any[] = [];
   users$ = this.store.pipe(select(selectAllUsers));
-  testvalue: boolean = true;
 
   constructor(private store: Store) {
   }
@@ -20,7 +19,7 @@ export class UsersComponent implements OnInit {
     this.cols = [
       {field: 'username', header: 'Benutzername'},
       {field: 'name', header: 'Name'},
-      // {field: 'admin', header: 'Admin?'}
+      {field: 'admin', header: 'Admin?'}
     ];
 
     this.store.dispatch(UserActions.loadUsers());

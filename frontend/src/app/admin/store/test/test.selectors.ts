@@ -1,7 +1,5 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import * as fromTest from './test.reducer';
-import {TreenodeFactory} from "../../../utils/treenodefactory";
-import {max} from "rxjs";
 
 export const selectTestState = createFeatureSelector<fromTest.State>(
   fromTest.testFeatureKey
