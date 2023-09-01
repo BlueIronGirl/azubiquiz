@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Test} from "../../../shared/entities/test";
+import {Test} from "../../../entity/test";
 import {HttpErrorResponse} from "@angular/common/http";
 
 // loadTests

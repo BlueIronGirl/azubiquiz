@@ -8,9 +8,14 @@ export const selectUserState = createFeatureSelector<fromUser.State>(
 export const selectUsersLoading = createSelector(
   selectUserState,
   state => state.loading
-)
+);
 
 export const selectAllUsers = createSelector(
   selectUserState,
   state => state.users
+);
+
+export const selectLogin = createSelector(
+    selectUserState,
+    state => state.loginUser
 )

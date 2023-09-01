@@ -8,7 +8,7 @@ import {
   loadTestsFailure,
   loadTestsSuccess, updateTest, updateTestFailure, updateTestSuccess
 } from './test.actions';
-import {Test} from "../../../shared/entities/test";
+import {Test} from "../../../entity/test";
 
 export const testFeatureKey = 'test';
 

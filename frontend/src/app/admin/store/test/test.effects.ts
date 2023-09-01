@@ -3,7 +3,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, concatMap, switchMap} from 'rxjs/operators';
 import {Observable, EMPTY, of} from 'rxjs';
 import * as TestActions from './test.actions';
-import {TestStoreService} from "../../../shared/test-store.service";
+import {TestService} from "../../../service/test.service";
 
 
 @Injectable()
@@ -56,6 +56,6 @@ export class TestEffects {
   });
 
 
-  constructor(private actions$: Actions, private testService: TestStoreService) {
+  constructor(private actions$: Actions, private testService: TestService) {
   }
 }
