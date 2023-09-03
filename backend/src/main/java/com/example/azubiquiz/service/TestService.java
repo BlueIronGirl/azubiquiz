@@ -48,7 +48,7 @@ public class TestService {
                     test.setName(testData.getName());
                     test.setBeschreibung(testData.getBeschreibung());
                     test.setFragen(testData.getFragen());
-                    return testRepository.save(test);
+                    return testRepository.saveAndFlush(test);
                 })
                 .orElseThrow(() -> new Exception("Test nicht gefunden"));
     }

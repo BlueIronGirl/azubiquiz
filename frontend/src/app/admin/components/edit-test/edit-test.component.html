@@ -1,145 +1,154 @@
 <form [formGroup]="testForm" (ngSubmit)="save()">
     <p-card [header]="header">
         <!-- Version -->
-        <div>
-          <span [class]="centerVerticallyStyleClass"
-                [style]="minWidthMinHeightStyle">
-            <label>Version</label>
-          </span>
-            <span [class]="centerStyleClass">
-            <p-inputNumber formControlName="version"></p-inputNumber>
-          </span>
+        <div class="md:flex md:items-center mt-2 mb-2">
+            <div class="w-64">
+                <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="version">
+                    Version
+                </label>
+            </div>
+            <div class="w-full">
+                <input id="version" class="w-full" type="text" pInputText
+                       formControlName="version"/>
+            </div>
         </div>
 
         <!-- Name -->
-        <div>
-      <span [class]="centerVerticallyStyleClass"
-            [style]="minWidthMinHeightStyle">
-        <label>Name</label>
-      </span>
-            <span [class]="centerStyleClass">
-        <input type="text"
-               pInputText
-               formControlName="name"/>
-      </span>
+        <div class="md:flex md:items-center mt-2 mb-2">
+            <div class="w-64">
+                <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="name">
+                    Name
+                </label>
+            </div>
+            <div class="w-full">
+                <input id="name" class="w-full" type="text" pInputText formControlName="name"/>
+            </div>
         </div>
 
         <!-- Beschreibung -->
-        <div>
-      <span [class]="centerVerticallyStyleClass"
-            [style]="minWidthMinHeightStyle">
-        <label>Beschreibung</label>
-      </span>
-            <span [class]="centerStyleClass">
-        <textarea pInputTextarea
-                  formControlName="beschreibung"
-                  [rows]="5"
-                  [cols]="30"
-                  [autoResize]="true"></textarea>
-      </span>
+        <div class="md:flex md:items-center mt-2">
+            <div class="w-64">
+                <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="beschreibung">
+                    Beschreibung
+                </label>
+            </div>
+            <div class="w-full">
+                <textarea id="beschreibung" class="w-full" type="text" rows="3" pInputText
+                          formControlName="name"></textarea>
+            </div>
         </div>
 
         <p-divider></p-divider>
 
+        <!-- TODO: Auslagern -->
         <div formArrayName="fragen">
             <div *ngFor="let controlQuestion of fragen.controls; index as indexQuestions"
                  [formGroupName]="indexQuestions">
-                <p-fieldset [legend]="fragen.at(indexQuestions).get('name')?.value"
-                            [toggleable]="true">
-                    <div>
-                        <input type="text" pInputText formControlName="name" class="w-3"/>
-                    </div>
-                    <div class="mt-3">
-                        <!-- Beschreibung -->
-                        <span [class]="centerVerticallyStyleClass"
-                              [style]="minWidthMinHeightStyle">
-                        <label>Beschreibung</label>
-                        </span>
-                        <span [class]="centerStyleClass"
-                              [style]="marginRightStyle">
-                            <input type="text" pInputText formControlName="beschreibung"/>
-                        </span>
+                <p-fieldset [legend]="fragen.at(indexQuestions).get('name')?.value" [toggleable]="true">
 
-                        <!-- Hinweis -->
-                        <span [class]="centerVerticallyStyleClass"
-                              [style]="minWidthMinHeightStyle">
-                            <label>Hinweis</label>
-                        </span>
-                        <span [class]="centerStyleClass"
-                              [style]="marginRightStyle">
-                            <input type="text" pInputText formControlName="hinweis"/>
-                        </span>
-
-                        <button pButton
-                                type="button"
-                                class="ui mini button"
-                                label="Toggle Antworttyp"
-                                (click)="toggleAntwortTyp(controlQuestion)"
-                                [style]="{'margin-right': '.5em', 'vertical-align': 'middle'}"></button>
+                    <!-- Fragenname -->
+                    <div class="md:flex md:items-center mt-2 mb-2">
+                        <div class="w-64">
+                            <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4">
+                                Name
+                            </label>
+                        </div>
+                        <div class="w-full">
+                            <input class="w-full" type="text" pInputText formControlName="name"/>
+                        </div>
                     </div>
+
+                    <!-- Beschreibung -->
+                    <div class="md:flex md:items-center mt-2 mb-2">
+                        <div class="w-64">
+                            <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4">
+                                Beschreibung
+                            </label>
+                        </div>
+                        <div class="w-full">
+                            <input class="w-full" type="text" pInputText formControlName="beschreibung"/>
+                        </div>
+                    </div>
+
+                    <!-- Hinweis -->
+                    <div class="md:flex md:items-center mt-2 mb-2">
+                        <div class="w-64">
+                            <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4">
+                                Hinweis
+                            </label>
+                        </div>
+                        <div class="w-full">
+                            <input class="w-full" type="text" pInputText formControlName="hinweis"/>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="toggleAntwortTyp(controlQuestion)"
+                            class="text-white bg-gray-800 rounded-lg ml-1 px-2 py-2 mb-4 text-center">
+                        Antworttyp ändern
+                    </button>
 
                     <!-- Antworten -->
                     <div formArrayName="antworten">
-                        <h2>Antworten</h2>
-                        <div *ngFor="let controlAnswer of antworten(indexQuestions).controls; index as indexAnswer"
-                             [formGroupName]="indexAnswer">
-                            <!-- Beschreibung -->
-                            <span class="align-items-center"
-                                  style="display: inline-block; min-width: 140px; min-height: 50px;">
-                <label>Beschreibung</label>
-              </span>
-                            <span class="align-items-center justify-content-center"
-                                  [style]="marginRightStyle">
-                <input type="text"
-                       pInputText
-                       formControlName="beschreibung"/>
-              </span>
+                        <p-fieldset legend="Antworten" [toggleable]="true" [collapsed]="true">
+                            <div *ngFor="let controlAnswer of antworten(indexQuestions).controls; index as indexAnswer"
+                                 [formGroupName]="indexAnswer">
 
-                            <!-- Korrekter Wert -->
-                            <span class="align-items-center"
-                                  style="display: inline-block; min-width: 140px; min-height: 50px;">
-                <label>Korrekter Wert</label>
-              </span>
+                                <!-- Beschreibung -->
+                                <div class="md:flex md:items-center mt-2 mb-2">
+                                    <div class="w-64">
+                                        <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4">
+                                            Beschreibung
+                                        </label>
+                                    </div>
+                                    <div class="w-full">
+                                        <input class="w-full" type="text" pInputText
+                                               formControlName="beschreibung"/>
+                                    </div>
+                                </div>
 
-                            <p-checkbox formControlName="korrekterAntwortText"
-                                        [style]="{'margin-bottom': '30px'}"
-                                        [binary]="true"
-                                        *ngIf="controlQuestion.get('antwortTyp')?.value == 0"></p-checkbox>
+                                <!-- Korrekter Wert -->
+                                <div class="md:flex md:items-center mt-2 mb-2">
+                                    <div class="w-64">
+                                        <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4">
+                                            Korrekter Wert
+                                        </label>
+                                    </div>
+                                    <div class="w-full">
+                                        <p-checkbox formControlName="korrekterAntwortText"
+                                                    [binary]="true"
+                                                    *ngIf="controlQuestion.get('antwortTyp')?.value == 0"></p-checkbox>
 
-                            <span class="align-items-center justify-content-center"
-                                  [style]="marginRightStyle">
-                <input type="text"
-                       pInputText
-                       formControlName="korrekterAntwortText"
-                       *ngIf="controlQuestion.get('antwortTyp')?.value == 1"/>
-              </span>
+                                        <input type="text"
+                                               class="w-full"
+                                               pInputText
+                                               formControlName="korrekterAntwortText"
+                                               *ngIf="controlQuestion.get('antwortTyp')?.value == 1"/>
+                                    </div>
+                                </div>
 
-                        </div>
+                                <p-divider></p-divider>
 
-                        <button pButton
-                                type="button"
-                                class="ui mini button"
-                                label="+Antwort"
-                                (click)="addAntwortControl(indexQuestions)"
-                                [style]="{'margin-right': '.5em'}"></button>
+                            </div>
+
+                            <button type="button" (click)="addAntwortControl(indexQuestions)"
+                                    class="text-white bg-gray-800 rounded-lg ml-1 px-2 py-2 text-center">
+                                +Antwort
+                            </button>
+                        </p-fieldset>
                     </div>
-
-                    <p-divider></p-divider>
                 </p-fieldset>
             </div>
         </div>
 
         <ng-template pTemplate="footer">
-            <button pButton
-                    type="button"
-                    class="ui mini button"
-                    label="+Fragen"
-                    (click)="addFrageControl()"
-                    [style]="{'margin-right': '.5em'}"></button>
-            <button pButton
-                    type="submit"
-                    label="Speichern"
-                    [disabled]="testForm.invalid"></button>
+            <button type="button" (click)="addFrageControl()"
+                    class="text-white bg-gray-800 rounded-lg ml-1 px-2 py-2 text-center">
+                +Frage
+            </button>
+            <button type="submit" [disabled]="testForm.invalid"
+                    class="text-white bg-gray-800 rounded-lg ml-1 px-2 py-2 text-center">
+                Speichern
+            </button>
         </ng-template>
     </p-card>
 
